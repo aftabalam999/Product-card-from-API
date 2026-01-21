@@ -1,17 +1,38 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cards</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<body>
-    <div class="main-container">
-    </div>
+  <body>
+    <nav>
+      <h1>Product</h1>
+      <div class="filter-container">
+        <span>Category</span>
+        <select name="category" id="category">
+          <option value="all">All</option>
+        </select>
+
+        <span><i class="fa-solid fa-arrow-down-short-wide"></i></span>
+
+        <select name="sort-product" id="sort">
+          <option value="default">Default</option>
+          <option value="low-to-high">Price: Low to High</option>
+          <option value="high-to-low">Price: High to Low</option>
+        </select>
+      </div>
+    </nav>
+    <div class="main-container"></div>
     <script src="./app.js"></script>
-</body>
-
+  </body>
 </html>
