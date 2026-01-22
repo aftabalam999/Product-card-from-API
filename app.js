@@ -29,10 +29,6 @@ const createCard = (product) => {
   const content = document.createElement("div");
   content.classList.add("content");
 
-  const category = document.createElement("span");
-  category.classList.add("category");
-  category.textContent = product.category;
-
   const title = document.createElement("h2");
   title.classList.add("title");
   title.textContent = product.title;
