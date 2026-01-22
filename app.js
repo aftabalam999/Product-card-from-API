@@ -3,10 +3,13 @@ const API_URL = "https://fakestoreapi.com/products";
 const container = document.querySelector(".main-container");
 const categorySelect = document.querySelector("#category");
 const sortSelect = document.querySelector("#sort");
+const paginationContainer = document.querySelector(".pagination-container");
 
 let allProducts = [];
 let currentCategory = "all";
 let currentSort = "default";
+let currentPage = 1;
+const itemPerPage = 4;
 
 const formatPrice = (price) => `$${Number(price).toFixed(2)}`;
 
@@ -136,9 +139,67 @@ const renderProducts = () => {
     sorted.sort((a, b) => b.price - a.price);
   }
 
-  sorted.forEach((product) => {
+  // sorted.forEach((product) => {
+  //   container.appendChild(createCard(product));
+  // });
+
+  const startIdx = (currentPage - 1) * itemPerPage;
+  const endIdx = startIdx + itemPerPage;
+  const paginatedProducts = sorted.slice(startIdx, endIdx);
+
+  paginatedProducts.forEach((product) => {
     container.appendChild(createCard(product));
   });
+
+  renderPagination(sorted.length);
+};
+
+const renderPagination = (totalItems) => {
+  paginationContainer.innerHTML = "";
+  const totalPages = Math.ceil(totalItems / itemPerPage);
+
+  if (totalPages <= 1) return;
+
+  const prevBtn = document.createElement("button");
+  prevBtn.textContent = "Prev";
+  prevBtn.classList.add("page-btn");
+  prevBtn.disabled = currentPage === 1;
+  prevBtn.addEventListener("click", () => {
+    if (currentPage > 1) {
+      currentPage--;
+      renderProducts();
+    }
+  });
+
+  paginationContainer.appendChild(prevBtn);
+
+  for (let i = 1; i <= totalPages; i++) {
+    const btn = document.createElement("button");
+    btn.classList.add("page-btn");
+    btn.textContent = i;
+    if (i === currentPage) {
+      btn.classList.add("active");
+    }
+    btn.addEventListener("click", () => {
+      currentPage = i;
+      renderProducts();
+    });
+    paginationContainer.appendChild(btn);
+  }
+
+  const nextBtn = document.createElement("button");
+  nextBtn.textContent = "Next";
+  nextBtn.classList.add("page-btn");
+  nextBtn.disabled = currentPage === totalPages;
+  nextBtn.addEventListener("click", () => {
+    if (currentPage < totalPages) {
+      currentPage++;
+
+      renderProducts();
+    }
+  });
+
+  paginationContainer.appendChild(nextBtn);
 };
 
 document.addEventListener("DOMContentLoaded", loadProducts);
@@ -146,6 +207,7 @@ document.addEventListener("DOMContentLoaded", loadProducts);
 if (sortSelect) {
   sortSelect.addEventListener("change", (e) => {
     currentSort = e.target.value;
+    currentPage = 1;
     renderProducts();
   });
 }
@@ -153,6 +215,7 @@ if (sortSelect) {
 if (categorySelect) {
   categorySelect.addEventListener("change", (e) => {
     currentCategory = e.target.value;
+    currentPage = 1;
     renderProducts();
   });
 }
