@@ -179,7 +179,7 @@ select{
     border-color: #6fe2f4;
 }
 
-.page-btn.active{
+.active{
     background-color: #9525eb;
     color: #fff;
     border-color: #9525eb;

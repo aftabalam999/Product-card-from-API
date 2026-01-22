@@ -202,7 +202,6 @@ const renderPagination = (totalItems) => {
   paginationContainer.appendChild(nextBtn);
 };
 
-document.addEventListener("DOMContentLoaded", loadProducts);
 
 if (sortSelect) {
   sortSelect.addEventListener("change", (e) => {
@@ -219,3 +218,5 @@ if (categorySelect) {
     renderProducts();
   });
 }
+
+document.addEventListener("DOMContentLoaded", loadProducts);
