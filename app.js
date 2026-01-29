@@ -4,6 +4,7 @@ const container = document.querySelector(".main-container");
 const categorySelect = document.querySelector("#category");
 const sortSelect = document.querySelector("#sort");
 const paginationContainer = document.querySelector(".pagination-container");
+const searchInput = document.querySelector("#searchInput")
 
 let allProducts = [];
 let currentCategory = "all";
@@ -28,7 +29,6 @@ const createCard = (product) => {
 
   imageContainer.appendChild(img);
 
-  // Content Container
   const content = document.createElement("div");
   content.classList.add("content");
 
@@ -117,7 +117,10 @@ const populateCategories = (products) => {
 };
 
 const getFilteredProducts = () => {
-  if (currentCategory === "all") return [...allProducts];
+  if (currentCategory === "all"){
+    return [...allProducts];
+  }
+    
   return allProducts.filter((product) => product.category === currentCategory);
 };
 
@@ -202,6 +205,31 @@ const renderPagination = (totalItems) => {
   paginationContainer.appendChild(nextBtn);
 };
 
+searchInput.addEventListener('keyup',(e)=>{
+  debounceSearch(e.target.value)
+})
+
+function debounce(fn,delay){
+  let timerId;
+  
+  return function (...args){
+    clearTimeout(timerId);
+    timerId = setTimeout(() => {
+      fn(...args)
+    }, delay);
+  }
+}
+
+const search = (searchVal)=>{
+  console.log('searching ', searchVal);
+  currentPage=1;
+  const searchedProduct =  allProducts.filter((product)=>product.title.toLowerCase().includes(searchVal.toLowerCase()))
+  getFilteredProducts(searchedProduct) 
+}
+
+const debounceSearch = debounce(search, 500);
+
+// debounceSearch('hello')
 
 if (sortSelect) {
   sortSelect.addEventListener("change", (e) => {

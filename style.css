@@ -39,6 +39,13 @@ select{
     color: #333;
 }
 
+input[type="search"]{
+    padding: 0.4rem 0.6rem;
+    border-radius: 0.4rem;
+    border: 1px solid #888;
+    width: 200px;
+}
+
 
 .main-container {
     display: flex;
